@@ -18,7 +18,10 @@
 	},
 	"homepage": "https://github.com/InSight1910/NodeJS-Practical#readme",
 	"dependencies": {
+		"bcrypt": "^5.0.1",
 		"express": "^4.17.1",
+		"jsonwebtoken": "^8.5.1",
+		"mysql": "^2.18.1",
 		"nanoid": "^3.1.21"
 	},
 	"devDependencies": {
