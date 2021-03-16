@@ -43,6 +43,62 @@ const list = (table) =>
 			resolve(data);
 		});
 	});
+const get = (table, id) =>
+	new Promise((resolve, reject) => {
+		connection.query(
+			`SELECT * FROM ${table} WHERE id = ${id}`,
+			(err, data) => {
+				if (err) return reject(err);
+				resolve(data);
+			}
+		);
+	});
+
+const insert = (table, data) => {
+	return new Promise((resolve, reject) => {
+		connection.query(`INSERT INTO ${table} SET ?`, data, (err, result) => {
+			if (err) return reject(err);
+			resolve(result);
+		});
+	});
+};
+const update = (table, data) => {
+	return new Promise((resolve, reject) => {
+		connection.query(
+			`UPDATE ${table} SET ? WHERE id=?`,
+			data,
+			(err, result) => {
+				if (err) return reject(err);
+				resolve(result);
+			}
+		);
+	});
+};
+const query = (table, query, join) => {
+	let joinQuery = "";
+	if (join) {
+		const key = Object.keys(join)[0];
+		const val = join[key];
+		joinQuery = `JOIN ${key} ON ${table}.${val} = ${key}.id`;
+	}
+	return new Promise((resolve, reject) => {
+		connection.query(
+			`SELECT * FROM ${table} ${joinQuery} WHERE ?`,
+			query,
+			(err, result) => {
+				console.log(result);
+				err ? reject(err) : resolve(result[0] || null);
+			}
+		);
+	});
+};
+const upsert = (table, data) => {
+	if (data && data.id) return update(table, data);
+	return insert(table, data);
+};
 module.exports = {
 	list,
+	get,
+	upsert,
+	query,
 };

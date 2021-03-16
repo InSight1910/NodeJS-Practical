@@ -9,9 +9,9 @@ module.exports = (injectedStore) => {
 	const login = async (username, password) => {
 		const data = await store.query(TABLE, { username });
 
-		return bcrypt.compare(password, data[0].password).then((equals) => {
+		return bcrypt.compare(password, data.password).then((equals) => {
 			if (equals) {
-				return sign(data[0]);
+				return sign(data);
 			}
 		});
 	};

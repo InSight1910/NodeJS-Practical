@@ -35,6 +35,9 @@ const check = {
 			throw error("You can´t make that", 401);
 		}
 	},
+	logged: (req) => {
+		const decode = decodeHeader(req);
+	},
 };
 module.exports = {
 	sign,

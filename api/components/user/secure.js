@@ -8,6 +8,10 @@ const checkAuth = (action) => {
 				check.own(req, owner);
 				next();
 				break;
+			case "follow":
+				check.logged(req);
+				next();
+				break;
 			default:
 				next();
 		}
