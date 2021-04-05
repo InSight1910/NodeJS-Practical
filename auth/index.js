@@ -2,7 +2,8 @@ const jwt = require("jsonwebtoken");
 const error = require("../utils/error");
 const secret = "secret";
 const sign = (data) => {
-	return jwt.sign(data, secret);
+	const { id, username, password } = data;
+	return jwt.sign({ id, username, password }, secret);
 };
 
 const getToken = (auth) => {

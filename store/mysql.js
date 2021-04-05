@@ -46,7 +46,7 @@ const list = (table) =>
 const get = (table, id) =>
 	new Promise((resolve, reject) => {
 		connection.query(
-			`SELECT * FROM ${table} WHERE id = ${id}`,
+			`SELECT * FROM ${table} WHERE id="${id}"`,
 			(err, data) => {
 				if (err) return reject(err);
 				resolve(data);
@@ -65,8 +65,9 @@ const insert = (table, data) => {
 const update = (table, data) => {
 	return new Promise((resolve, reject) => {
 		connection.query(
-			`UPDATE ${table} SET ? WHERE id=?`,
+			`UPDATE ${table} SET ? WHERE id="${data.id}"`,
 			data,
+
 			(err, result) => {
 				if (err) return reject(err);
 				resolve(result);
@@ -86,14 +87,15 @@ const query = (table, query, join) => {
 			`SELECT * FROM ${table} ${joinQuery} WHERE ?`,
 			query,
 			(err, result) => {
-				console.log(result);
 				err ? reject(err) : resolve(result[0] || null);
 			}
 		);
 	});
 };
 const upsert = (table, data) => {
-	if (data && data.id) return update(table, data);
+	if (data && data.id) {
+		return update(table, data);
+	}
 	return insert(table, data);
 };
 module.exports = {

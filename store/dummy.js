@@ -12,7 +12,6 @@ const upsert = async (table, data) => {
 		db[table] = [];
 	}
 	db[table].push(data);
-	console.log(db);
 };
 const remove = async (table, id) => true;
 const query = async (table, quer) => {

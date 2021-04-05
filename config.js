@@ -8,4 +8,8 @@ module.exports = {
 		password: process.env.PASSWORD || "uovRX2tlwg",
 		database: process.env.DATABASE || "6cnTpxSDBK",
 	},
+	mysqlService: {
+		host: process.env.MYSQL_SERVICE_HOST || "localhost",
+		port: process.env.MYSQL_SERVICE_PORT || 3001,
+	},
 };
